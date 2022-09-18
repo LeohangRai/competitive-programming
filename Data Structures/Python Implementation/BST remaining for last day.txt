@@ -1,0 +1,5 @@
+Height of a tree
+Max num of nodes that a tree can have based on its height
+Types of tree (Complete, Full, perfect)
+
+AVL aliali
