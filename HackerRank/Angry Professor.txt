@@ -1,0 +1,51 @@
+# Angry Professor
+A Discrete Mathematics professor has a class of students. Frustrated with their lack of discipline, the professor decides to cancel class if fewer than some number of students are present when class starts. Arrival times go from on time (arrivalTime <= 0) to arrived late (arrivalTime > 0).
+
+Given the arrival time of each student and a threshhold number of attendees, determine if the class is cancelled.
+Note: Non-positive arrival times (a[i] <= 0) indicate the student arrived early or on time; positive arrival times (a[i] > 0) indicate the student arrived a[i] minutes late.
+
+# Example
+n = 5 (length of the array)
+k = 3 (threshold)
+a = [ -2, -1, 0, 1, 2 ]
+The first 3 students arrived on. The last 2 were late. The threshold is 3 students, so class will go on. Return YES.
+
+# Function Description
+angryProfessor has the following parameter(s):
+int k: the threshold number of students
+int a[n]: the arrival times of the n students
+
+# Returns
+string: either YES or NO
+
+# Constraints
+1 <= n <= 1000
+1 <= k <= n
+
+
+# Solution
+Since the upper constraint is n <= 1000 and k <= n, I think it is alright to use a loop from 0 to (n-1)th element of the given array.
+We initialize the count of students who arrived in time as 0.
+Now, loop through the given array and see if count of students who arrived in time has reached k or not.
+If yes, we just return "NO".
+Otherwise, we check whether the current element is less than or equal to 0 or not.
+If arr[i] <= 0, count += 1.
+else, do nothing, just go to the next iteration.
+If we never return "NO" even after iterating over all the elements of the given array, it means, the number of students who arrived in time is less than the threshold number "k".
+So, it means the class will be cancelled, so just return "YES" after the end of the loop.
+
+
+# Implementation
+function angryProfessor(k, a) {
+    let punctualStudentsCount = 0;
+    for(let i = 0; i < a.length; i++) {
+        if(punctualStudentsCount === k) {
+            return "NO";
+        } else {
+            if(a[i] <= 0) {
+                punctualStudentsCount += 1;
+            }
+        }
+    }
+    return "YES";
+}

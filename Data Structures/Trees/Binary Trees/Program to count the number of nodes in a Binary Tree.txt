@@ -1,0 +1,17 @@
+# Program to count the number of nodes in a binary tree
+
+# Python
+def count_nodes(root):
+	if root is None:
+		return 0
+	return (1 + count_nodes(root.left) + count_nodes(root.right))
+	
+	
+	
+# JavaScript
+function countNodes(root) {
+	if(root == undefined) {
+		return 0;
+	}
+	return (1 + countNodes(root.left) + countNodes(root.right));
+}

@@ -1,0 +1,63 @@
+# Inserting in a Binary Search Tree
+
+# First things first
+Before inserting a key into a BST, we have to check if that key already exists in the BST or not.
+This means, we have to check whether the pointer reaches up to Null when we traverse from the root node to leaf nodes or not.
+If the pointer reaches a leaf node while traversing from the root of the BST, then reaches and points to Null, it means the key does not exist in the BST and we can insert it into our BST.
+On the contrary, if the value of current node (in the loop) is found to be equal to the key, it means that the key already exists in the BST, so we return Null.
+(If you are having trouble understanding how this will happen, have a look at "Searching in a Binary Tree". There you will find how search happens in a BST)
+
+# How to know where to insert the new node?
+But since our pointer will be pointing to Null by this time, how do we keep track of the parent node, i.e. the node where we will have to attach this new node.
+We can keep track of the parent node by using a tail pointer which will always be one step behind the main pointer, such that if the main pointer points to Null, the tail will still be pointing to the parent of the current main pointer.
+So the tail pointer will point to the node on whose left/right we will have to insert this new node.
+
+# How does the tail pointer work though?
+The tail pointer will always be one step behind the main pointer because the assignment "tail=main" happens at the start of each iteration of the while loop whereas the  reassignment of the main pointer (i.e. either root = root.left or root = root.right) happens near the end of each iteration. This means, after the termination of the while loop, i.e. when the main pointer is pointing to Null, the assignment of "tail=root" will not happen. So the tail pointer will still be pointing to the previous node, i.e. the parent node.
+
+# Final steps
+If the key doesn't exist, we will create a new node whose data will be the key and then we will set it as the left/right child of the current node's parent based on whether it is greater or smaller than the parent node's data. (current node's parent meaning the last node that was not Null, currently the pointer would be pointing to Null).
+
+
+# Iterative Implementation
+function insertBST(root, key) {
+	let tail; // use tail to keep track of the parent node on whose left/right we will insert the new node
+	while(root != Null) {
+		tail = root;
+		if(key == root.data) { //if the key already exists
+			return;
+		} else if (key < root.data)  {
+			root = root.left;
+		} else {
+			root = root.right;
+		}
+	}
+	let newNode = new Node(key);
+	// check whether to insert the new node to the left or right of its parent
+	if(newNode.data < tail) {
+		tail.left = newNode;
+	} else {
+		tail.right = newNode;
+	}
+}
+
+
+# Recursve Implementation
+function recursiveInsert(root, key) {
+	if(root == Null) {
+		let newNode = new Node(key);
+	}
+	if(root.data == key) {
+		return;
+	} else  if (key < root.data) {
+		recursiveInsert(root.left, key);
+	} else {
+		recursiveInsert(root.right, key);
+	}
+	return newNode;
+}
+
+
+# Time Complexity
+The time complexity of inserting a node in BST is also:
+O(logn)

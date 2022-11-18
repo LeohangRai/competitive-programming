@@ -1,0 +1,35 @@
+A perfect binary tree is a type of binary tree in which every internal node has exactly 2 children nodes and all the leaf nodes are at the same level.
+
+
+NOTES (Useful for checking if a binary tree is Perfect or not):
+- All the internal nodes have a degree of 2.
+- Recursively, a perfect binary tree can be defined as:
+1. If a single node has no children, it is a perfect binary tree of height h = 0.
+2. If a node has h > 0, it is a perfect binary tree if both of its subtrees are of height "h-1" and are non-overlapping.
+
+NOTE: Here, height of a node is counted from bottom to top unlike depth which is calculated from top to bottom.
+
+
+# Program to check if a given Binary Tree is Perfect Binary Tree or not:
+
+function isPerfectBT(root, depth, level = 0) {
+	// empty tree case
+	if (root == undefined) {
+		return true;
+	}
+	
+	// case where left and right sub-trees are not present
+	if(root.left == undefined && root.right == undefined) {
+		return (depth === level + 1);  // if there are no children, we just have check if the depth of the current node is level+1 or not (if this confuses you, check point number 2 above)
+	}
+	
+	// case where only left or right child is present
+	// NOTE: the if condition above will have already skipped the case where both left and right could be NULL
+	if(root.left == undefined || root.right == undefined) {
+		return false;
+	}
+	
+	// final case where both left and right are present
+	return (isPerfectBT(root.left, depth, level + 1) && isPerfect(root.right, depth, level + 1));
+	
+}

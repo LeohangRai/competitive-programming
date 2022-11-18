@@ -1,0 +1,113 @@
+You are choreographing a circus show with various animals. For one act, you are given two kangaroos on a number line ready to jump in the positive direction (i.e, toward positive infinity).
+- The first kangaroo starts at location x1 and moves at a rate of v1 meters per jump.
+- The second kangaroo starts at location x2 and moves at a rate of v2 meters per jump.
+You have to figure out a way to get both kangaroos at the same location at the same time as part of the show. If it is possible, return YES, otherwise return NO.
+
+Example
+x1 = 2, v1 = 1
+x2 = 1, v2 = 2
+
+After one jump, they are both at x = 3, (x1 + v1 = 2 + 1, x2 + v2 = 1 + 2), so the answer is YES.
+
+
+# Brute-force solution
+Check the following conditions for each iteration:
+1. if x1 = x2 ---> YES
+
+2. if(v1 == v2 & x1 != x2) ---> NO
+
+3. if (x1 < x2 and v1 < v2) ---> NO (Because since x1 has lower speed and starting point, it will never meet x2)
+
+4. if (x2 < x1 and v2 < v1) ---> NO (Same reason as above)
+
+If none of the conditions are satisfied, increment x1 and x2 by v1 and v2 resp. and move on to the next iteration.
+This is like checking all conditions for seeing if the 2 kangaroos will meet or not for each step they take.
+
+
+# Brute-force Pseudocode
+function kangaroo(x1, v1, x2, v2) {
+	while (true) {
+        if(x1 == x2) {
+            return "YES";
+        }
+        if(v1 == v2 && x1 != x2) {
+            return "NO";
+        }
+        if((x1 < x2 && v1 < v2) || (x2 < x1 && v2 < v1)) {
+            return "NO";
+        }
+        x1 += v1;
+        x2 += v2;
+    }
+}
+
+
+
+# Optimal solution
+This problem can be resolved into a Linear equation.
+The variables here are x1, v1 and x2, v2.
+
+The distance covered (or the number of steps taken) by the Kangaroo that starts from "x1" while reaching position "x" is given by the function:
+(jumpRate * x) + start
+= (v1 * x) + x1
+
+The distance covered by the Kangaroo that starts from "x2" while reaching position "x" is given by the function:
+(jumpRate * x) + start 
+= (v2 * x) + x2
+
+Here, v1 and v2 are representing 'm' of the linear equation.
+Meanwhile, x1 and x2 are representing 'c' of the linear equation.
+
+The question requires us to see if the 2 kangaroos starting from position x1 and x2 ever meet or not.
+For this, we can first look for the position where these two kangaroos meet using the linear equations above.
+If we assume that the 2 kangaroos meet at position 'x', then we know that the distance covered by both the kangaroos at this position will be equal. So we can form the following equation:
+
+(v1 * x) + x1 = (v2 * x) + x2
+v1.x + x1 = v2.x + x2
+x1 - x2 = v2.x - v1.x
+x1 - x2 = x(v2 - v1)
+x = (x1 - x2) / (v2 - v1)
+
+You can exchange this to (x2 - x1)/(v1-v2), if x2 is greater than x1. (Or just use absolute value of both of them)
+Use this equation to observe the value of 'x', which is the meeting point of Kangaroos starting from x1 and x2.
+The 2 kangaroos meet if the following conditions are satisfied: 
+1. The value of x >= 0.
+2. x is an integer (not a floating number).
+
+NOTE: I think it is a good approach to check all the if conditions that I have checked above in the brute-force solution to avoid exceptional cases like the case where (v2-v1) or (v1-v2) is 0.
+
+
+# Pseudocode for the optimal solution
+function kangaroo(x1, v1, x2, v2) {
+	if(x1 != x2 && v1 == v2) {
+        return "NO";
+    }
+    if((x1 < x2 && v1 < v2) || (x2 < x1 && v2 < v1)) {
+        return "NO";
+    }
+    let meetingPoint = Math.abs(x1 - x2) / Math.abs(v2 - v1);
+    if(meetingPoint >= 0 && parseInt(meetingPoint) === meetingPoint) {
+        return "YES";
+    }
+    return "NO";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

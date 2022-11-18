@@ -1,0 +1,120 @@
+In data structure, traversal means, visiting all the elements or nodes of the given data structure.
+If a data str is linear, there are 2 possible ways of traversing the data str, i.e first to last (forward) and last to first (backwards).
+But when it is not linear, the possible traversals could vary.
+
+For Binary Trees, these traversals are possible:
+1. Pre-order   2. In-order  3. Post-order    4. Leverl-order
+
+1. Pre-order
+visit(node) --> preOrder(leftSubTree) --> preOrder(rightSubTree) 
+- visit the root node  
+- perform pre-order traversal on its left sub-tree
+- perform pre-order traversal on its right sub-tree
+
+2. In-order
+inOrder(leftSubTree) --> visit(node) --> inOrder(rightSubTree)
+- perform in-order traversal on its left sub-tree
+- visit the root node
+- perform in-order traversal on its right sub-tree
+
+3. Post-order
+postOrder(leftSubTree) --> postOrder(rightSubTree) --> visit(node)
+- perfrom post-order traversal on its left sub-tree
+- perform post-order traversal on its right sub-tree
+- visit the root node
+
+4. Level-order
+- visit all the nodes level by level.
+
+
+Example 1:
+     A
+   /   \
+  B     C   
+Pre-order: A, B, C
+In-order: B, A, C
+Post-order: B, C, A
+Level-orde: A, B, C
+
+Example 2:
+    A
+  /
+B
+Pre-order: A, B
+In-order: B, A
+Post-order: B, A
+Level-order: A, B
+
+
+Example 3:
+A
+  \
+    B
+Pre-order: A, B
+In-order: A, B
+Post-order: B, A
+Level-order: A, B
+
+
+Example 4:
+            A
+	     /     \ 
+      /          \
+    B              C
+   /   \         /   \
+D      E       F       G
+
+
+NOTE: If you have to find the traversal of bigger trees, then divide the tree into smaller problems, i.e. sub trees.
+
+The root of the given tree is A. It's left child is B and the right child is C. B and C have children of their own, forming their own separate sub-trees.
+
+# Pre-order Traversal
+So, let's say we have to perform pre-order traversal on this tree, then we will have to first visit the root node, i.e. A.
+Then the left child, i.e. B, but since B has a sub-tree of it's own, we peform preOrderTraversal on the B sub-tree.
+    B
+   /   \
+D      E
+Pre-order: B, D, E
+
+Now the right child, i.e. C also has a sub-tree of it's own, so we perform preOrderTraversal on the C sub-tree as well.
+    C
+   /   \
+F      G
+Pre-order: C, F, G
+
+So, the final traversal result will be:
+root, leftSubTree, rightSubTree
+= A, (B, D, E), (C, F, G)
+= A, B, D, E, C, F, G
+
+# In-order Traversal (visualize the tree and sub-trees above):
+Left sub-tree: D, B, E
+Root: A
+Right sub-tree: F, C, G
+So, the final traversal result will be:
+D, B, E, A, F, C, G
+
+# Post-order Traversal (visualize the tree and sub-trees above):
+Left sub-tree: D, E, B
+Right sub-tree: F, G, C
+Root: A
+So, the final traversal result will be:
+D, E, B, F, G, C, A
+
+# Level-order Traversal (visualize the main tree and traverse line by line top to bottom)
+A,                          --> first Level
+B, C,                     --> second level
+D, E, F, G			 --> third level
+
+So, the final traversal result will be:
+A, B, C, D, E, F, G
+
+NOTE: We can use a queue data structure to perform level-order traversal.
+First enqueue the root of the tree.
+Then run a while loop (while !queue.isEmpty), dequeue the first element from the queue and save its reference in a variable, if there's a left child of the this element, then enqueue it into the queue, and if there's a right child of this element, then enqueue it as well.
+The while loop will run untll all the nodes of the Binary tree are printed.
+
+This algorithm basically works by enqueueing the current node (starting from the root node), into the queue, printing it's data.
+Then dequeuing the root node from the queue and storing its reference in a variable.
+Then enqueueing it's left and right child into the queue, and then again dequeing(popping) the 1st element from the queue and repeating the proess.

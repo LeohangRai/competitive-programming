@@ -1,0 +1,62 @@
+# Question
+
+This is a staircase of size n = 4:
+   #
+  ##
+ ###
+####
+Its base and height are both equal to 4. It is drawn using # symbols and spaces. The last line is not preceded by any spaces.
+Write a program that prints a staircase of size n.
+
+Input Format:
+A single integer, n, denoting the size of the staircase.
+
+Output Format:
+Print a staircase as described above.
+
+
+Solution Explanation:
+We need to print a staircase such that the base and height are same, i.e. equal to the parameter "n".
+The staircase is right shifted, i.e. the #'s are shifted to the right side.
+When n = 4:
+In the first line, there are 3 spaces and 1 hash.
+In the second line, there are 2 spaces and 2 hashes.
+In the thir line, there is 1 space and 3 hashes.
+In the fourth (n = 4) line, there are 0 spaces and 4 hashes.
+
+From this, we can gather that,
+For each iteration of the loop from 1 to n:
+If i = 1, spaces = n-1 = 4-1 = 3 && hashes = n-spaces = 4-3 = 1
+If i = 2, spaces = n-2 = 4-2 = 2 && hashes = n-spaces = 4-2 = 2
+If i = 3, spaces = n-3 = 4-3 = 1 && hashes = n-spaces = 4-1 = 3
+If i = 4, spaces = n-4 = 4-4 = 0 && hashes = n-spaces = 4-0 = 4
+
+Let's translate this into code.
+
+Solution:
+function staircase(n) {
+    let i = 1;
+    let staircase = '';
+    while (i <= n) {
+        let spaceCount = n - i;
+        let hashCount = n - spaceCount;
+        staircase += (' '.repeat(spaceCount) + '#'.repeat(hashCount));
+        staircase += '\n';
+        i += 1;
+    }
+    console.log(staircase);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

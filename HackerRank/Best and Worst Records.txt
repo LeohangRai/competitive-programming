@@ -1,0 +1,43 @@
+# Best and Worst Records
+Maria plays college basketball and wants to go pro. Each season she maintains a record of her play. She tabulates the number of times she breaks her season record for most points and least points in a game. Points scored in the first game establish her record for the season, and she begins counting from there.
+
+An array of integers (scores) is given as an Input.
+The elements of the array represent the consecutive scores of Maria.
+We have return an array of 2 elements. The element at the first index represents the number of times she broke her highest record so far while the second element represents the number of times she broke her lowest record.
+
+For this, we can maintain a hashMap with key:value pairs for lowest and highest scores.
+Initially, the hashMap will be:
+{
+    highest: arr[0],
+    lowest: arr[0]
+}
+
+This is because, in the beginning  the first score will be the only one that we can reference and compare with our consecutive scores to see if the record was broken or not.
+
+Now, loop through each element in the input array and see if it is higher than the current highest in the hashMap. If it is, then update the value of "highest" in the hashMap and increase the counter for the "highest socre".
+
+For "lowest score", see if the current element is lower than the lowest in the "hashMap", if it is indeed lower, then update it in the hashMap and increase the counter.
+
+
+# Pseudocode
+
+function breakingRecords(scores) {
+    let highestRecordCounter = 0;
+    let lowestRecordCounter = 0;
+    let records = {
+        highest: scores[0],
+        lowest: scores[0]
+    }
+
+    scores.forEach(score => {
+        if(score > records.highest) {
+            highestRecordCounter += 1;
+            records["highest"] = score;
+        }
+        if(score < records.lowest) {
+            lowestRecordCounter += 1;
+            records["lowest"] = score;
+        }
+    })
+    return [highestRecordCounter, lowestRecordCounter];
+}

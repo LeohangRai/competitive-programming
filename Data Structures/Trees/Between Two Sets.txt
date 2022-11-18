@@ -1,0 +1,40 @@
+# Between Two Sets
+There will be two arrays of integers. Determine all integers that satisfy the following two conditions:
+1. The elements of the first array are all factors of the integer being considered
+2. The integer being considered is a factor of all elements of the second array
+
+These numbers are referred to as being between the two arrays. Determine how many such numbers exist for given 2 arrays.
+
+# Returns
+int: the number of integers that are between the sets
+
+# Input Format
+The first line contains two space-separated integers, n and m, the number of elements in arrays a and b.
+The second line contains n distinct space-separated integers a[i].
+The third line contains m distinct space-separated integers b[j].
+
+# EXAMPLE
+Sample Input:
+2 3
+2 4
+16 32 96
+
+Sample Output:
+3
+
+Explanation:
+2 and 4 divide evenly into 4, 8, 12 and 16.
+4, 8 and 16 divide evenly into 16, 32, 96.
+4, 8 and 16 are the only three numbers for which each element of a is a factor and each is a factor of all elements of b.
+
+
+# Problem solution
+[ 2, 4 ]
+[ 16, 32, 96 ]
+
+Acc. to the question, we have to find numbers that satisfy the condition that each element of the first array is their valid factor. This means, the number should be divisible by each number in the first array.
+So, the lowest number that satisfies this condition, is the LCM (Lowest Common Multiple) of the elements in the first array. This will act as the lower bound for our loop.
+
+On the contrary, the second condition says that each element in the second array should be a factor of the number. This means, the number should be a factor of each elment in the second array. Or, the number should be a divisor of each element in the second array.
+So, if we get the GCD (Greatest Common Divisor) of the elements of the second array, it will act as the upper bound for our loop.
+

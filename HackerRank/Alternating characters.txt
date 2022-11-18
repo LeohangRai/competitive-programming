@@ -1,0 +1,40 @@
+# Alternating Characters
+You are given a string containing characters "A" and "B" only. Your task is to change it into a string such that there are no matching adjacent characters. To do this, you are allowed to delete zero or more characters in the string.
+
+Your task is to find the minimum number of required deletions.
+
+# Example
+s = AABAAB
+Remove an A at positions 0 and 3 to make s = ABAB in 2 deletions.
+
+# Function Description
+alternatingCharacters has the following parameter(s):
+string s: a string
+
+# Returns
+int: the minimum number of deletions required
+
+
+# Solution
+If s.length <= 1, return 0.
+Initialize the number of deletions required to be 0.
+
+Loop through the given string from index 0 to s.length - 2. ( i.e while i < s.length - 1 OR while i <= s.length - 2)
+(this is because the last element cannot have another subsequent element)
+
+For every individual character of the string, see if it's next subsequent character is the same as itself or not.
+If it is indeed same as the current character, increase the counter by 1.
+This means, for every str[i], if str[i+1] == str[i], counter += 1.
+
+
+# Implementation
+function alternatingCharacters(s) {
+    if(s.length <= 1) return 0;
+    let numDeletions = 0;
+    for(let i = 0; i < s.length - 1; i++) {
+        if(s[i] === s[i+1]) {
+            numDeletions += 1;
+        }
+    }
+    return numDeletions;
+}

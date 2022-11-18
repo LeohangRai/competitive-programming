@@ -1,0 +1,34 @@
+A person wants to determine the most expensive computer keyboard and USB drive that can be purchased with a give budget. Given price lists for keyboards and USB drives and a budget, find the cost to buy them. If it is not possible to buy both items, return .
+
+Initialize the mostExp variable with value = 0.
+Loop through the keyboards array.
+For each keyboard find the sum of its cost combined with each drive from the "drives" array.
+For each iteration, check if the sum is less than or equal to the budget.
+And, if this combination is greater than the mostExp variable, then replace it with this new value.
+
+At the end of the 2 loops, if the mostExp variable's value is still 0, this means that there are no combinations available for the given budget, so return -1.
+Otherwise, return the value of mostExp.
+
+
+function getMoneySpent(keyboards, drives, b) {    /*
+     * Write your code here.
+     */ 
+    let mostExp = 0;
+    for(let i = 0; i < keyboards.length; i++) {
+        if(keyboards[i] >= b) {
+            continue;
+        }
+        
+        for(let j = 0; j < drives.length; j++) {
+            let newCombination = keyboards[i] + drives[j];
+            if( newCombination <= b && newCombination > mostExp) {
+                mostExp = newCombination;
+            }
+        } 
+    }
+    if(mostExp == 0) {
+        return -1;
+    } else {
+        return mostExp;
+    }
+}

@@ -1,0 +1,122 @@
+# Complete Binary Tree
+A complete binary tree is a binary tree in which all the levels are completely filled except possibly the lowest one, which is filled from the left.
+
+A complete binary tree is just like a full binary tree, but with 2 major differences:
+1. All the leaf elements must lean towards the left.
+2. The last leaf element might not have a right sibling, i.e. a complete binary tree doesn't have to be a full binary tree.
+
+# IMPORTANT NOTE:
+(Easy way to remember the meaning of Complete Binary Tree)
+Complete binary trees can be represented in an array because they are filled from left to right. 
+So, if we represent a complete binary tree in an array, there will not be any holes.
+Maybe this is the reason why they are known as Complete Binary Trees, since they complete an array.
+
+# How to create a Complete Binary Tree
+
+# Representing Complete Binary Tree in an Array
+1. Insert the root of the Tree as the first element of the Array
+2. Next, insert the left and right children of the current root node into the array.
+3. Repeat this process until all the nodes of the Binary tree have been inserted into the array.
+
+# Converting array representation of a Complete Binary Tree into linked (hierarchical) representation
+1. Select the first element of the array to be the root node. 
+2. Put the second element of the array as the child of the root node and the third element as the right child.
+3. Repeat this process until all the elements of the array have been inserted into the Linked representation.
+
+
+# Example:
+1. Array Representation:
+[1, 12, 9, 5, 6, 10]
+
+
+2. Linked Representation:
+      1
+    /   \ 
+   /     \
+  12      9
+ /  \    /
+5    6  10
+
+
+# Relationship between array indexes and tree node of a Complete Binary Tree
+A complete binary tree has an interesting property that we can use to find the children and parents of any node.
+
+# IMPORATANT NOTE:
+Understanding this mapping of array indexes to tree positions is critical to understanding how the Heap Data Structure works and how it is used to implement Heap Sort.
+
+If 'i' is the index of the current node, then:
+1. index of the left child = 2i + 1
+2. index of the right child = 2i + 2
+
+Also, the parent of any node at index 'i', is given by the lower bound of:
+(i - 1) / 2
+
+Let's test this out on the above Complete Binary Tree.
+* Left child of 1 (index 0):
+= element at (2 * 0 + 1) index
+= element at 1 index
+= 12
+
+* Right child of 1 (index 0):
+= element at (2 * 0 + 1) index
+= element at 2 index
+= 9
+  
+* Parent of 9 (index 2):
+= element at (2 - 1) / 2  index
+= element at 1/2 index
+= element at 0.5 index
+= element at 0 index
+= 1
+  
+* Parent of 5 (index 3):
+= element at (3 - 1) / 2 index
+= element at (2 / 2) index
+= element at 1 index
+= 12
+  
+  
+  
+# Program to check if a Binary Tree is Complete or not:
+This implementation of a program to check if a binary tree is complete or not is based on the concept that, every Complete Binary Tree with a fixed number of nodes will always have fixed positions for each of its nodes.
+
+For each level, the index where the left and right children of the current node will belong to, in an array representation of Complete Binary Tree is given by:
+
+If 'i' is the index of the current node, then:
+1. index of the left child = 2i + 1
+2. index of the right child = 2i + 2
+
+For example, for the Binary Tree above, the indices of each node, if they were set in an array representation would be:
+
+Node  	index	numberOfNodes
+  1		   0		 6
+  12	   1	     6
+  9        2         6 
+  5        3         6
+  6        4         6
+  10       5         6
+  
+So, if we compare the index of the current element and find that it is greater or equal to the total number of nodes in the Binary Tree, it means that it has not been filled up from left to right.
+The node is possibly skipping a left parent.
+So this is how we can figure out whether a Binary Tree is complete or not.
+
+
+# Pseudocode
+function isCompleteBT(root, index = 0, nodesCount) {
+	// case where the tree is empty
+	if (root == undefined) {
+		return True;
+	}
+	// case where the current node is not on the position (index) where it belongs
+	if (index >= nodesCount) {
+		return False;
+	}
+	// recursively call this on the right and left child of the current node
+	return (isCompleteBT(root.left, 2 * index + 1, nodesCount) && isCompleteBT(root.right, 2 * index + 2, nodesCount))
+}
+ 
+  
+  
+# Applications of Complete Binary Tree
+1. Heap-based data structures
+2. Heap sort

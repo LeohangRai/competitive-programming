@@ -1,0 +1,49 @@
+# Equalize the Array
+Given an array of integers, determine the minimum number of elements to delete to leave only elements of equal value.
+
+# Example
+arr = [1,2,2,3]
+Delete the 2 elements 1 and 3 leaving arr = [2, 2]. If both twos plus either the 1 or 3 the  are deleted, it takes 3 deletions to leave either [3] or [1]. The minimum number of deletions is 2.
+
+# Input Format
+The first line contains an integer n, the number of elements in arr.
+The next line contains n space-separated integers arr[i].
+
+# Returns
+int: the minimum number of deletions required
+
+
+# Solution
+Initialize a hashMap that stores the frequency of each element in the given array.
+Loop through the given array, and update the frequency of each element in the hashMap.
+
+Now loop through key/values of the hashMap and find the key with the maximum value (frequency).
+This is the one we should equalize our array to.
+Now subtract this frequency from the length of the given array to find out the total number of deletions required.
+
+
+# Implementation
+function equalizeArray(arr) {
+    if(arr.length === 0 || arr.length === 1) {return 0}
+    let hashMap = {};
+    // assume the first element of the array is the most frequent for the time being
+    let mostFrequent = arr[1]; 
+    
+    // get the hashMap that stores the frequency of each element in the array
+    arr.forEach(x => {
+        if(hashMap[x] == undefined) {
+            hashMap[x] = 1;
+        } else {
+            hashMap[x] += 1;
+        }
+    })
+        
+    // find the key with the highest value (frequency) from the hashMap
+    for(let [key, value] of Object.entries(hashMap)) {
+        if(value > hashMap[mostFrequent]) {
+            mostFrequent = Number(key);
+        }
+    }    
+    
+    return (arr.length - hashMap[mostFrequent]);
+}

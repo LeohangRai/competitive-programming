@@ -1,0 +1,7 @@
+# Tail Recursion:
+
+If the last statement in a function is a recursive call, then it is known as Tail recursion. 
+Generally, to convert a recursion into iteration, you may need a stack (not always). 
+But in order to implement a Tail recursion in iterative way, we will not need any stack (always).
+We can see this in the conversion of recursive search implementation of a BST into iterative implementation.
+Here, the recursive call is happening at the tail/bottom of the function definition, either in (key < pointer.data) condition or (key > pointer.data) condition, so this is a case of Tail recursion. 

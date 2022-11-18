@@ -1,0 +1,20 @@
+# Balanced Binary Tree (Height Balanced Binary Tree)
+A balanced binary tree, also referred to as, Height Balanced Binary Tree, is a type of binary tree in which the height of the left and right sub-tree of any node differ by not more than 1.
+
+Following are the conditions for a Binary Tree to be a Balanced BT:
+1. Difference between the height of the left and right subtree for any node is not more than 1.
+2. The left sub-tree is balanced
+3. The right sub-tree is balanced
+
+
+# Balance Factor
+Height balanced binary trees can be denoted by HB(k), where k is the difference between heights of left and right subtrees. ‘k’ is known as the balance factor.
+If for a tree, the balance factor (k) is equal to zero, then that tree is known as a fully balanced binary tree. It can be denoted as HB(0).
+
+Example:
+
+
+
+# Applications of Balanced Binary Tree
+1. AVL Tree
+2. Balanced Binary Search Tree

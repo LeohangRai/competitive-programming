@@ -1,0 +1,63 @@
+# Tree Data Structure
+A tree is a non-linear hierarchical data structure that consists of nodes connected by edges.
+
+
+# Why Tree Data Structure?
+Linear data structures like arrays, Linked lists, stacks and queues store data sequentially so the time complexity for performing any kind of operation (such as search), the time complexity increases with the increase in the data size.
+This is not acceptable in today's computational world.
+
+Tree based data structures allow faster and easier access to the data since they are non-linear in nature.
+
+
+# Tree Terminologies
+1. Node
+A node is an entity that contains a key of value and pointers to its child nodes.
+
+2. Leaf Nodes (External Nodes)
+The last nodes of each path of a tree are known as the leaf nodes or external nodes.
+Basically, their left and right pointers point to NULL.
+
+3. Internal Nodes (Non-leaf nodes)
+THe node having at least one child is called an Internal Node.
+
+4. Edge
+It is the link between any two nodes.
+
+5. Root
+It is the topmost node of a tree.
+
+6. Height of a Node
+The height of a node is the number of edges from the node to the deepest leaf.
+(.i.e. the longest path from the given node to a leaf node).
+
+7. Depth of a Node
+The depth of a node is the number of edges fromt he root to the given node.
+
+8. Height of a Tree
+The height of a Tree is the height of the root node or the depth of the deepest node.
+
+9. Degree of a Node
+The degree of a node is the total number of branches (children) of that node.
+
+10. Forest
+A collection of disjoint trees is called a forest.
+You can create a forest by removing the root of a tree.
+
+
+# Types of Trees
+1. Binary Tree
+2. Binary Search Tree
+3. AVL Tree
+4. B-Tree
+5. Red-black Tree
+
+
+# Applications of Tree Data Structure
+- BSTs are used to quickly check whether an element is present in a set or not.
+- Heap is a kind of tree that is used for heap sort.
+- Popular databases use B-Trees and T-Trees, which are variants of the Tree data structure to store their data. (mainly for indexing)
+- Compilers use a syntax tree to validate the syntax of your code.
+
+
+
+

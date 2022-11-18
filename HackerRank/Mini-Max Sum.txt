@@ -1,0 +1,57 @@
+# Solution 1 (Better than Solution 2)
+// Get the total sum and subtract the max item to get the mini-sum and subtract the min item to get the max-sum
+function miniMaxSum(arr) {
+    // Write your code here
+    let sum = arr.reduce((acc, curr) => {
+        return acc += curr;
+    }, 0);
+    let max = 0;
+    let min = sum;
+    arr.forEach(item => {
+        if(item > max) {
+            max = item;
+        }
+    })
+    arr.forEach(item => {
+        if(item < min) {
+            min = item;
+        }
+    })
+    let minSum = sum - max;
+    let maxSum = sum - min;
+    process.stdout.write(minSum + " " + maxSum);
+}
+
+
+# Solution 2
+function miniMaxSum(arr) {
+    // Write your code here
+    let maxIndex = 0;
+    let minIndex = 0;
+    let max = arr[0];
+    let min = arr[0];
+    let maxSum = 0;
+    let minSum = 0;
+    
+    for(let i = 0; i < arr.length; i++) {
+        if(arr[i] > max) {
+            max = arr[i];
+            maxIndex = i;
+        }
+        if(arr[i] < min) {
+            min = arr[i];
+            minIndex = i;
+        }
+    }
+    
+    for(let j = 0; j < arr.length; j++) {
+        if(j != minIndex) {
+            maxSum += arr[j];
+        }
+        if(j != maxIndex) {
+            minSum += arr[j];
+        }
+    }
+    
+    console.log(minSum, maxSum);
+}

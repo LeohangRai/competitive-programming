@@ -1,0 +1,24 @@
+Given an array of integers and a posetive integer k, determine the number of (i,j) pairs where i<j and ar[i] + ar[j] is disible by k.
+
+/*
+ * Complete the 'divisibleSumPairs' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER n
+ *  2. INTEGER k
+ *  3. INTEGER_ARRAY ar
+ */
+
+function divisibleSumPairs(n, k, arr) {
+    // Write your code here
+    let count = 0;
+    for(let i = 0; i< arr.length ;i++){
+        for(let j= i + 1; j < arr.length; j++){
+            if(((arr[i] + arr[j]) % k) == 0) {
+                count += 1 ; 
+            }
+        }
+    }
+    return count;
+}

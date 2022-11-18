@@ -1,0 +1,111 @@
+# Question
+An avid hiker keeps meticulous records of their hikes. During the last hike that took exactly "steps" steps, for every step it was noted if it was an uphill, U, or a downhill, D step. Hikes always start and end at sea level, and each step up or down represents a 1 unit change in altitude. We define the following terms:
+
+A mountain is a sequence of consecutive steps above sea level, starting with a step up from sea level and ending with a step down to sea level.
+A valley is a sequence of consecutive steps below sea level, starting with a step down from sea level and ending with a step up to sea level.
+Given the sequence of up and down steps during a hike, find and print the number of valleys walked through.
+
+Input Format
+The first line contains an integer "steps", the number of steps in the hike.
+The second line contains a single string "path", of "steps" characters that describe the path.
+
+Returns 
+int: the number of valleys traversed
+
+
+# Solution Explanation
+# Main Concept (For my solution):
+If it is a mountain, the last step (element) to pop from the stack should be "D".
+If it is a valley, the last step (element) to pop from the stack should be "U".
+
+Maintain a stack (an array wil do in the case of JS).
+Initiate the stack with the first element of the "path" array as its first element.
+let traversals = [path[0]];
+
+Now, loop from the second index, i.e from 1 up till the end of the given "path" array.
+
+1. For valleys count:
+NOTE: When the current element is "U", it could potentially be the case of completion of a valley.
+If the current element is "U", check if the last element in the stack "D", if it is indeed "D", then pop() the last element from the stack.
+If this pop() action empties the whole stack, it signifies the completion of a valley, so increment the count of valleys.
+
+2. For mountains count:
+NOTE: When the current element is "D", it could potentially be the case of completion of a  mountain.
+If the current element is "D", check if the last element in the stack is "U", if it is indeed "U", then pop() the last element from the stack.
+If this pop() action empties the whole stack, it signifies the completion of a mountain, so increment the count of mountains.
+Otherwise, just push() the current element into the stack.
+
+
+# Solution that calculates the count of mountains as well as valleys but only returns the count of valleys:
+NOTE: I did this solution so that the explanation would become clearer.
+
+function countingValleys(steps, path) {
+    // Write your code here
+    let valleysCount = 0;
+    let mountainsCount = 0;
+    let traversals = [path[0]];
+    let flag = false;
+
+    for(let i = 1; i < path.length; i++) {
+        if(path[i] === 'D') {
+            if(traversals[traversals.length - 1] === 'U')     {
+                traversals.pop();
+                if(traversals.length === 0) {
+                    mountainsCount += 1;
+                }
+            }
+            else {
+                traversals.push(path[i]);
+            }
+        } 
+        if(path[i] === 'U') {
+            if(traversals[traversals.length - 1] === 'D')     {
+                traversals.pop()
+                if(traversals.length === 0) {
+                    valleysCount += 1;
+                }
+            }
+            else {
+                traversals.push(path[i]);
+            }
+        }
+    }
+    return valleysCount;
+}
+
+
+# Solution that calculates the count of Valleys only:
+function countingValleys(steps, path) {
+    let valleysCount = 0;
+    let traversals = [path[0]];
+    let flag = false;
+
+    for(let i = 1; i < path.length; i++) {
+        if(path[i] === 'D') {
+            if(traversals[traversals.length - 1] === 'U')     {
+                traversals.pop();
+            }
+            else {
+                traversals.push(path[i]);
+            }
+        } 
+        if(path[i] === 'U') {
+            if(traversals[traversals.length - 1] === 'D')     {
+                traversals.pop()
+                if(traversals.length === 0) {
+                    valleysCount += 1;
+                }
+            }
+            else {
+                traversals.push(path[i]);
+            }
+        }
+    }
+    return valleysCount;
+}
+
+
+
+
+
+

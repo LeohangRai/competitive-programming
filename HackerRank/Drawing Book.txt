@@ -1,0 +1,99 @@
+# Drawing Book
+A teacher asks the class to open their books to a page number. A student can either start turning pages from the front of the book or from the back of the book. They always turn pages one at a time. When they open the book, page 1 is always on the right side.
+
+When they flip page 1, they see pages 2 and 3. Each page except the last page will always be printed on both sides. The last page may only be printed on the front, given the length of the book. If the book is n pages long, and a student wants to turn to page p, what is the minimum number of pages to turn? They can start at the beginning or the end of the book.
+
+Given n and p, find and print the minimum number of pages that must be turned in order to arrive at page p.
+
+
+# Solution
+# How to know whether to go from the front to back or from back to the front page?
+No need to check which direction to take.
+Just calculate the number of turns required from both front-to-back as well as back-to-front directions and just return the minimum one.
+
+# The cases where we can return 0 are:
+if(p = 1 || p = n) return 0;
+
+# How to know if the last page will have whether 1 or 2 pages?
+The first page will always have a single page, i.e. Page number 1.
+This means, if the total num of pages is odd, the last page will have 2 pages, otherwise, only 1 page:
+so,
+if(t % 2 != 0 && p = n-1) return 0.
+
+# Front to back algorithm
+if page = 1,
+number of turns = 0
+
+Now, 1 will be a constant "c".
+1 turn --> 2 and 3
+2 turns --> 4 and 5
+3 turns --> 6 and 7
+4 turns --> 8 and 9
+
+If we view this from the other angle, we see that,
+To reach pages:
+2 and 3 --> 1 turn
+4 and 5 --> 2 turns
+6 and 7 --> 3 turns
+8 and 9 --> 4 turns
+
+This means, to reach any page, the number of turns required is given by:
+For reaching page n:
+Floor(p/2) turns.
+
+
+# Back to front algorithm (Different for odd and even number of total pages)
+1. Odd number of pages case
+Let's say total number of pages is 9.
+if (page = 9 || page = 8), number of turns = 0
+1 turn --> 7 and 6
+2 turns --> 5 and 4
+3 turns --> 3 and 2
+4 turns --> 1
+
+If we view this from the other angle, we see that,
+To reach pages:
+7 and 6 --> 1 turn
+5 and 4 --> 2 turns
+3 and 2 --> 3 turn
+1 --> 4 turns
+
+So, to reach page n:
+Floor((n - p) / 2)
+
+# Test:
+To reach page 4, floor((9 - 4 ) / 2) = floor(5/2) = 2 turns
+To reach page 3, floor((9 - 3) / 2) = floor(6/2) = 3 turns
+
+2. Even number of pages case
+Let's say, total number of pages is 10
+if (page = 10, number of turns = 0
+1 turn --> 9 and 8
+2 turns --> 7 and 6
+3 turns --> 5 and 4
+4 turns --> 3 and 2
+
+To reach pages:
+9 and 8 --> 1 turn
+7 and 6 --> 2 turns
+5 and 4 --> 3 turns
+3 and 2 --> 4 turns
+
+So, to reach page n:
+Ceiling((n-p) / 2) turns
+
+# Test:
+To reach page 4, ceiling((10 - 4) / 2) = ceiling(6 / 2) = 3 turns
+To reach page 3, ceiling((10-3) / 2) = ceiling(7 / 2) = 4 turns
+
+
+# Implementation
+function pageCount(n, p) {
+    if(p == 1 || p == n) return 0;
+    if(n % 2 != 0 && p == n-1) {
+        return 0;
+    }
+    let frontToBack = Math.floor(p / 2);
+    let backToFront = n % 2 === 0 ? Math.ceil((n - p) / 2) : Math.floor((n - p) / 2);
+    return Math.min(frontToBack, backToFront);
+}

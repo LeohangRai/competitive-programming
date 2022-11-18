@@ -1,0 +1,67 @@
+# Question
+There is a new mobile game that starts with consecutively numbered clouds. Some of the clouds are thunderheads and others are cumulus. The player can jump on any cumulus cloud having a number that is equal to the number of the current cloud plus 1 or 2. The player must avoid the thunderheads. Determine the minimum number of jumps it will take to jump from the starting postion to the last cloud. It is always possible to win the game.
+
+For each game, you will get an array of clouds numbered 0 if they are safe or 1 if they must be avoided.
+
+
+# Solution Explanation
+Loop through the array starting from the starting index 0 to the second last index, i.e. (arr.length - 1).
+So, we know that we can jump double in either of the two cases:
+1. If the next element of the current element is 1.
+2. If the next element of the current element is 0 and its consecutive next is also 0.
+
+# IMPPORTANT NOTE:
+We know that there will never be 2 or more executive 1's.
+An element with value 1 will always be followed by another element of 0.
+This means, we can change the above 2 cases into:
+1. If the next element of the current element is 1 and its consecutive next is 0.
+2. If the next element of the current element is 0 and its consecutive next is also 0.
+
+From this, we can say that, we can make a jump every time the current element's next.next element has a value of 0.
+That is, if we are currently at element a[i], we can jump whenever a[i+2] is 0.
+In terms of code (loops), jumping/skipping means, skipping the iteration.
+
+Initially set the value of the jumpCount to 0.
+Use a pointer to loop through the array.
+Loop through the array starting from the starting index 0 to the second last index, i.e. (arr.length - 1).
+This is because, when we reach the second last position of the array, we cannot jump-skip.
+
+# Solution using a while loop:
+function jumpingOnClouds(arr) {
+    let jumpsCount = 0;
+    let i = 0;
+
+    while(i < arr.length -1) {
+        if(arr[i+2] === 0) {
+            i += 2; // increase the iteration counter by 2 to skip the next iteration
+            jumpsCount += 1;
+        } else {
+            i += 1;  // normal iteration counter increment
+            jumpsCount += 1;
+        }
+    }
+
+    return jumpsCount;
+}
+
+# Solution using a for loop:
+function jumpingOnClouds(arr) {
+	let minJumpsCount = 0;
+    for (let i = 0; i < arr.length - 1; i++) {
+        if(arr[i+2] === 0) {
+            minJumpsCount += 1;
+            i += 1;  // increase the iterator to skip the next iteration
+        } else {
+            minJumpsCount += 1;
+        }
+    }
+    return minJumpsCount;
+}
+
+
+
+
+
+
+
+

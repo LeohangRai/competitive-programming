@@ -1,0 +1,44 @@
+# Question
+Given a time in 12-hour AM/PM format, convert it to military (24-hour) time.
+
+Note: 
+- 12:00:00AM on a 12-hour clock is 00:00:00 on a 24-hour clock.
+- 12:00:00PM on a 12-hour clock is 12:00:00 on a 24-hour clock.
+
+Example
+s = '12:01:00PM'
+Return '12:01:00'.
+
+s = '12:01:00AM'
+Return '00:01:00'.
+
+
+# Solution Explained
+First, check if it is "AM" or "PM" by getting the substring containing the second last and last index of the given string.
+If it is "AM", the only case where we will have to change the value of hour is when it is "12". This is where we will have to convert the hour to "00". If it's not the case, just copy the given string, remove "AM" and return the new time without "AM". 
+If it is "PM", we will have to add extra "12" to the current hour, except the condition where hour is "12". If hour is "12", it will remain as it is, just return the whole time string with "AM"/"PM" value excluded.
+
+NOTE:
+- The minutes and seconds will not be changed in either of the conditions. (in no condition actually).
+- Don't add "AM"/"PM" in the new created date string.
+
+
+# Solution
+function timeConversion(s) {
+    let meridiem = s.slice(s.length - 2, s.length);
+    let hour = s.slice(0, 2);
+    let timeWithoutHour = s.slice(2, s.length - 2);
+    let timeWithoutMeridiem = s.slice(0, s.length - 2);
+    if(meridiem === 'AM') {
+        if(hour === '12') {
+            return "00" + timeWithoutHour;
+        } 
+        return s.slice(0, s.length - 2);
+    }
+    if (meridiem === 'PM') {
+        if(hour === '12') {
+            return timeWithoutMeridiem;
+        }
+        return (Number(hour) + 12).toString() + timeWithoutHour;
+    }
+}

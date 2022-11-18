@@ -1,0 +1,155 @@
+There is a string, s, of lowercase English letters that is repeated infinitely many times. Given an integer,n, find and print the number of letter a's in the first n letters of the infinite string.
+
+Example
+s = 'abcac'
+n = 10
+
+The substring we consider is "abcacabcac"", the first 10 characters of the infinite string. There are 4 occurrences of "a" in the substring.
+
+# Returns
+int: the frequency of "a" in the substring
+
+# Input Format
+The first line contains a single string, "s".
+The second line contains an integer, "n".
+
+# Sample Input 0
+aba 
+10
+
+# Sample Output 0
+7
+
+# Explanation 0
+The first n = 10 letter os the infinite string are "abaabaabaa". Because there are 7 a's, we return 7.
+
+
+
+# Naive Brute-force solution ( This does not work as it exceeds the maximum possible length of strings if the value of n is very large, e.g. 1000000000000)
+First concat the string to itself iteratively until its length becomes greater than or equal to "n".
+Then, take the substring of the new concatenated string from 0 to n+1.
+Then count the number of a's in this substring.
+
+function repeatedString(s, n) {
+	let  = 0;
+	while(s.length < n) {
+		s += s;
+	}
+	let subStr = s.slice(0, n);
+	for(let i = 0; i < subStr.length; i++) {
+		if(subStr[i] == 'a') {
+			counter += 1;
+		}
+	}
+	return counter;
+}
+
+
+# Optimal Solution
+We can count the number of occurrences of 'a' in the given string.
+There could be 3 possible cases.
+Case 1: The length of string 's' is equal to 'n'.
+Case 2: The length of string 's' is greater than 'n'.
+Case 3: The length of string 's' is less than 'n'.
+
+if s.length == n, we simply count the occurrences of a's in the given string.
+if s.length > n, we get the sub-string of 's' from 0 to n, then get the count of occurrences of a's in the given string.
+
+else:
+i.e., if s.length < n, we get the number of times we have to repeat (multiply) 's' to reach s.length == n or close to 'n'. (close to n because sometimes the multiplication may overshoot and exceed the length of 'n' so we just get the lower bound of the division.)
+We can get this number by dividing 'n' by the length of 's' and taking the lower bound. (This gives the number of times 's' needs to be repeated in order to reach the length close to 'n')
+
+After dividing 'n' by 's', the following 2 cases may arise:
+1. The division may return an integer (i.e. no remainder)
+2. The division may return a floating value (i.e. remainder exists)
+
+Case 1:
+If there is no remainder, we just multiply the count of occurrences of 'a' in 's' by the division result. 
+
+Case 2:
+If there is a remainder, it means we need to add up this remainder value (to our repetition) to reach s.length = n.
+So, for this, we will do the tasks of Case 1. 
+Then, take the substring of 's' from 0 to the remainder value and count the occurrences of 'a' in this new substring.
+By adding these 2 counts, we get the total number of occurrences of 'a'.
+
+
+
+# Example:
+abacad
+20
+
+Here, 
+s.length = 6
+n = 20
+Since s.length < n, let's get the number of times we have to repeat s to have length close to n.
+So, multiple = lowerBound(n/s.length) = lowerBound(20/6) = 3
+remainder = n % s.length = 20 % 6 = 2.
+This means, we need to repeat 's' 3 times and then add substring of 's' from index 0 to remainder - 1, i.e. substring from s[0] to s[1] to get our string.
+
+Our required string will be:
+a b a c a d    a b a c  a  d      a  b  a  c  a  d     a  b
+1 2 3 4 5 6    7 8 9 10 11 12     13 14 15 16 17 18    19 20
+
+
+
+# Pseudocode
+function repeatedString(s, n) {
+    if(s.length == n) {
+        return getCountOfA(s);
+    } else if(s.length > n) {
+        return getCountOfA(s.slice(0, n));
+    } else {
+        let repetition = parseInt(n/s.length);
+        let remainder = n % s.length;
+        let - = getCountOfA(s) * repetition;
+        if(remainder == 0) {
+            return occurrences;
+        } else {
+            return occurrences + getCountOfA(s.slice(0, remainder))
+        }
+    }
+}
+
+function getCountOfA(s) {
+    let count = 0;
+    for(let i = 0; i < s.length; i++) {
+        if(s[i] == 'a') {
+            count += 1;
+        }
+    }
+    return count;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

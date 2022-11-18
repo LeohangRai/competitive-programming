@@ -1,0 +1,29 @@
+Full Binary Tree
+A full binary tree is a special type of binary tree in which every parent node/internal node has either 2 or 0 children.
+It is also known as a Proper Binary Tree.
+
+
+# Program to check if a given Binary Tree is Full/Proper Binary Tree or not:
+For a tree to be Full Binary Tree, each of its nodes must have either 2 or 0 children.
+So we can simply start from the root node and see whether the current node has either none or both children (.i.e left and right children). If the current node does have 0 or 2 children, then we pass the function call on to its left and right children.
+If the case is not passed, we return False.
+
+
+function isFullTree(root){
+	// empty tree case
+	if(root == undefined) {
+		return True;
+	}
+	
+	// case where neither left or right child is present
+	if(root.left == undefined && root.right == undefined) {
+		return True
+	}
+	
+	// case where both left and right child is present
+	if(root.right != undefined && root.right != undefined) {
+		return (isFullTree(root.left) && isFullTree(root.right));
+	}
+	
+	return False;
+}

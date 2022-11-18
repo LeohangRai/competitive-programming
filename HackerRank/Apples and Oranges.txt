@@ -1,0 +1,41 @@
+/*
+s -> Starting point of the house
+t -> Ending point of the house
+a -> Position of the apple tree
+b -> Position of the orange tree
+
+apples -> An array of distances as elements at which all the apples fall
+oranges -> An array of distances as elements at which all the oranges fall
+
+
+The distance at which the apple or oranges fall can be either +ve or -ve in the x-axis.
+-ve meaning the left side +ve meaning the right side.
+
+For each element of the apples array, add the element to location point of the apple tree, i.e. "a". (Use map)
+Then from the newly created array, check if the elements are in the range between "s" and "t", which are the co-ordinates of the house.
+Here "s" and "t" values are inclusive.
+
+numApples = 0;
+apples.map( distance => a + distance ).forEach(item => item <= s && item >= t ? numApples +=1 : null );
+*/
+
+function countApplesAndOranges(s, t, a, b, apples, oranges) {
+    // Write your code here
+    let numApples = 0;
+    let numOranges = 0;
+    apples.map(distance => a + distance).forEach(item => {
+        if(item >= s && item <= t) {
+            numApples += 1;
+        }
+    })
+    
+    oranges.map(distance => b + distance).forEach(item => {
+        if(item >= s && item <= t) {
+            numOranges += 1;
+        }
+    })
+    
+    console.log(numApples);
+    console.log(numOranges);
+
+}

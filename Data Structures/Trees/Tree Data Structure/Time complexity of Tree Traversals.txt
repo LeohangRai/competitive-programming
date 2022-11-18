@@ -1,0 +1,27 @@
+1. Pre-order traversal
+2. In-order traversal
+3. Post-order traversal
+
+NOTE: The time complexity of all these traversal methods (implemented recursively) is O(n).
+This is because the function gets called recursively for all the nodes as well as the null pointers (left and right):
+= number of nodes(n) + number of null pointers(n+1)
+= n + (n + 1)
+= 2n + 1
+=> O(n)
+
+
+
+Example: 
+
+                               [210|A|230]
+                                   200
+                              /          \
+                          /                  \
+                       /                        \
+                    /                              \
+          [270|D|280] 	                           [270|D|280]        
+              210                                      230 
+           /       \                                 /     \
+          /         \                               /       \
+[NULL|D|NULL]       [NULL|D|NULL]       [NULL|D|NULL]       [NULL|D|NULL]
+     270                 280                 310                 320

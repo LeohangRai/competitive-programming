@@ -1,0 +1,42 @@
+Binary search tree is a binary tree in which:
+For every node, all the elements in its left sub-tree are smaller than that node.
+And all the elements in the right sub-tree are greater than that node. 
+Binary search trees, as the name suggests are very useful for searching purposes.	 
+
+Example:
+           30
+         /      \
+       /          \
+    15           50
+   /   \	       /   \
+ 10    20   40    60
+
+
+How the search is performed on a BST?
+Let's say, we want to search for '40' in the above BST.
+Start from the root node, check if the value is equal to 40.
+If not, see if root.data is greater or less than the 40 we are trying to find.
+Here, 30 < 40, so move to the right side of the root node.
+Check the value of the current node, check if it is equal to 40.
+If not check if it is greater or smaller than current node.data.
+Here, 50 > 40, so move the the left side of this node.
+Here, we can find that node.data == 40, this means we have successfully found the key that we were searching for, in the Binary Search Tree.
+
+This is like Binary Search. Binary Search is applied on a single array, i.e in a list of elements. But this is upon Binary Tree. So the behavior is similar to Binary Search.
+
+NOTE:
+The search term depends upon the height of the Tree.
+This means, the worst case for searching algorithm on a BST is when the data we are searching for is located at leaf node or not present at all. (not present is more time consuming ig)
+Whereas, the best case is the one where the data we are searching for is located at the root node.
+
+Properties of a BST:
+1. A Binary Search Tree cannot have nodes with duplicate values.
+2. If we take the "In-order Traversal" of a BST, we get the list of elements in sorted order.
+Example:
+If we perform, In-order Traversal on the BST provided in the example above, we will get:
+10 --> 15 --> 20 --> 30 --> 40 --> 50 --> 60
+
+3. For 'n' nodes, the number of BST's that can be created is given by:
+T(n) = 2nCn / (n+1)
+
+NOTE: Catalan number

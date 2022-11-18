@@ -1,0 +1,61 @@
+# Insertion Sort - Part 1
+These challenges will cover Insertion Sort, a simple and intuitive sorting algorithm. We will first start with a nearly sorted list.
+
+# Insert element into sorted list
+Given a sorted list with an unsorted number "e" in the rightmost cell, can you write some simple code to insert "e" into the array so that it remains sorted?
+
+Since this is a learning exercise, it won't be the most efficient way of performing the insertion. It will instead demonstrate the brute-force method in detail.
+
+Assume you are given the array arr = [1,2,4,5,3] indexed 0...4. Store the value of arr[4]. Now test lower index values successively from 3 to 0 until you reach a value that is lower than arr[4], at arr[1] in this case. Each time your test fails, copy the value at the lower index to the current index and print your array. When the next lower indexed value is smaller than arr[4], insert the stored value at the current index and print the entire array.
+
+# Example
+n = 5
+arr = [1,2,4,5,3]
+
+Start at the rightmost index. Store the value of arr[4] = 3. Compare this to each element to the left until a smaller value is reached. Here are the results as described:
+Step 1: 1 2 4 5 5
+Step 2: 1 2 4 4 5
+Step 3: 1 2 3 4 5
+
+# Function Description
+insertionSort1 has the following parameter(s):
+n: an integer, the size of arr
+arr: an array of integers to sort
+
+# Returns
+None: Print the interim and final arrays, each on a new line. No return value is expected.
+
+
+# Solution
+Store the value of the last element in a variable, let's call it 'x'.
+So x = arr[arr.length -1]
+
+Now start a loop from the second last element (move from last to first element) and check if the value of the current element is greater than 'x'.
+If the current element is greater than 'x', set the value of the next (subsequent) element to the value of current element and move on to the next iteration.
+Repeat this process as long as the value of current element is greater than 'x'.
+If the condition fails (i.e. the condition where we have found the right location for our element x), just set the value of next element to 'x'.
+if (current element <= x) { nextElement = x }
+
+# Implementation
+function insertionSort1(n, arr) {
+    // Write your code here
+    let x = arr[n - 1] // store the last element as x
+    let i = n - 2 // index of the second last element
+    while(i >= 0 && arr[i] > x) {
+        if(arr[i] > x) {
+            arr[i + 1] = arr[i];
+        }
+        printArray(arr);
+        i -= 1;
+    }
+    arr[i + 1] = x;
+    printArray(arr);
+}
+
+function printArray(arr) {
+    let str = '';
+    for(let i = 0; i < arr.length; i++) {
+        str += (arr[i] + ' ');
+    }
+    console.log(str.trim());
+}

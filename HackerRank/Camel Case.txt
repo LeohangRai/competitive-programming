@@ -1,0 +1,35 @@
+# Camel Case
+There is a sequence of words in CamelCase as a string of letters, s, having the following properties:
+- It is a concatenation of one or more words consisting of English letters.
+- All letters in the first word are lowercase.
+- For each of the subsequent words, the first letter is uppercase and rest of the letters are lowercase.
+Given s, determine the number of words in s.
+
+# Example
+s = 'oneTwoThree'
+
+There are 3 words in the string: 'one', 'Two', 'Three'.
+
+# Input Format
+A single line containing string s.
+
+# Returns
+int: the number of words in s.
+
+
+# Solution:
+If the length of the string 's' is greater than 0, there will always be at least one word in the given string.
+So, if s.length > 0,  initialize the value of wordCount with 1, else set it as 0.
+Now, loop through the string to see the number of times, an Upper Case letter appears and increase the value of wordCount accordingly.
+This gives the total number of words included by the given string.
+
+function camelcase(s) {
+    // Write your code here
+    let wordCount = s.length > 0 ? 1 : 0;
+    for(let i = 0; i < s.length; i++) {
+        if(s[i].toUpperCase() === s[i]) {
+            wordCount += 1;
+        }
+    }
+    return wordCount;
+}
