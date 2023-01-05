@@ -1,0 +1,47 @@
+# Tree: Inorder Traversal
+In this challenge, you are required to implement inorder traversal of a tree.
+
+Complete the "inOrder" function in your editor below, which has 1 parameter: a pointer to the root of a binary tree. It must print the values in the tree's inorder traversal as a single line of space-separated values.
+
+# Input Format
+Our hidden tester code passes the root node of a binary tree to your $inOrder* function.
+
+# Constraints
+1 <= Nodes in the tree <= 500
+       
+
+# Output Format
+Print the tree's inorder traversal as a single line of space-separated values.
+
+
+
+# Solution:
+Since we need to print the result in a single line, if we are doing this is JS, we will have to accumulate the traversed node datas in a string.
+This is because inside of console.log() we cannot specify the separator value.
+It is always going to be a new line.
+If we had done this in Python, we could have simply used print() with sep = ' '.
+
+
+# Implementation (NodeJs)
+var resultString = '';
+
+function inOrder(root) {
+	inOrderAcc(root);
+    console.log(resultString);
+}
+
+function inOrderAcc(root) {
+    if(root) {
+        inOrderAcc(root.left);
+        resultString += (root.data + ' ');
+        inOrderAcc(root.right);
+    }
+}
+
+
+# Implementation (Python)
+def inOrder(root):
+    if root is not None:
+        inOrder(root.left)
+        print(root.info, end = ' ')
+        inOrder(root.right)

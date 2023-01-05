@@ -1,0 +1,66 @@
+# Grading Students
+
+
+# Solution
+First condition, if the input grade < 38, return it without doing anything.
+
+Else: 
+Divide the grade by 5.
+If the result is a whole number, no need to do anything.
+
+If the result is a floating number, get the integer part.
+Add 1 to the integer part and multiply it by 5.
+This gives the next closest multiple of 5.
+
+Now subtract the initially provided value from this number.
+If difference < 3, return the multiple
+Else just return the original number.
+
+
+# Example: 43
+Check the first condition: 43 < 38 --> false
+So, divide the grade by 5, 43/5 --> 8.6
+
+Integer part: 8
+Add 1 to the integer part: 9
+Multiply by 5: 9*5 --> 45 (This is the next closest multiple of 5)
+
+Subtract the original: 45 - 43 -> 2
+See if the difference is less than 3 --> Yes, 2 < 3
+So, return 45.
+
+
+
+# Implementation
+function isFloat(num) {
+    if(parseInt(num) === num) {
+        return false;
+    }
+    return true;
+}
+
+function gradeStudents(grade) {
+    if(grade < 38) return grade;
+    let division = grade / 5;
+    if(!isFloat(division)) {
+        return grade;
+    }
+    let integerPart = parseInt(division);
+    let nextMultipleOfFive = (integerPart + 1) * 5;
+    let difference = nextMultipleOfFive - grade;
+    if(difference < 3) {
+        return nextMultipleOfFive;
+    } else {
+        return grade;
+    }
+}
+
+/* main function */
+function gradingStudents(grades) {
+    // Write your code here
+    let result = [];
+    for(const grade of grades) {
+        result.push(gradeStudents(grade));
+    }
+    return result;
+}

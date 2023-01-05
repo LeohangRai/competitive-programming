@@ -1,0 +1,43 @@
+# Tree: Preorder Traversal
+Complete the "preOrder" function in the editor below, which has 1 parameter: a pointer to the root of a binary tree. 
+It must print the values in the tree's preorder traversal as a single line of space-separated values.
+
+# Input Format
+Our test code passes the root node of a binary tree to the preOrder function.
+
+# Constraints
+1 <= Nodes in the tree  <= 500
+
+# Output Format
+Print the tree's preorder traversal as a single line of space-separated values.
+
+
+# Solution
+Since we need to print the result in a single line, if we are doing this is JS, we will have to accumulate the traversed node datas in a string.
+This is because inside of console.log() we cannot specify the separator value.
+It is always going to be a new line.
+If we had done this in Python, we could have simply used print() with sep = ' '.
+
+
+# Implementation (NodeJs)
+var stringResult = '';
+function preOrderAcc(root) {
+    if(root != undefined) {
+        stringResult += (root.data.toString() + ' ');
+        preOrderAcc(root.left);
+        preOrderAcc(root.right);
+    }
+}
+
+function preOrder(root) {
+    preOrderAcc(root);
+    console.log(stringResult);
+}
+
+
+# Implementation (Python)
+def preOrder(root):
+    if root is not None:
+        print(root.info, end = ' ')	
+        preOrder(root.left)
+        preOrder(root.right)

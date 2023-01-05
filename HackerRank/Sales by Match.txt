@@ -1,0 +1,41 @@
+# Sales by Match
+
+
+# Solution
+The constraints are: 
+1 <= n <= 100
+This means we can solve this problem by using a non-nested O(n) loop.
+
+First initialize the counter to 0 and an empty hashmap {}.
+Let's loop through each element in the given array.
+For each element, form a key of that element and increment the counter for each time the element is visible in the array.
+
+1st observation of an element: insert the key and set its value to 1
+2nd observation of an element: reset the key value to 0 and increment the 'counter' by 1
+
+NOTE: By 'counter' here, we mean the total number of pairs counter.
+
+
+
+# Implementation
+function sockMerchant(n, ar) {
+    let count = 0;
+    let hashMap = {};
+    for(const item of ar) { 
+        if(hashMap[item] == undefined) {
+            hashMap[item] = 1;
+        }
+       
+        else if (hashMap[item] == 1) {
+            hashMap[item] = 0;
+            count += 1;
+        } else {
+            hashMap[item] += 1;
+        }
+    }
+    return count;
+}
+
+
+NOTE (Explanation of the 'else if' part)
+If the item has already been observed once before, the current observation means it exists in pair so increase the count of total num of sums by 1. Also reset the current item's key value to 0 in the hashMap.

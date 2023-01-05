@@ -1,31 +1,26 @@
+# Solution
+Get the sum of all the elements from the array.
+Get the highest and the lowest elements from the array.
+To get the maxSum, subtract the lowest element from the total sum.
+To get the minSum, subtract the highest element from the total sum.
+
+
+# Implementation
 function miniMaxSum(arr) {
     // Write your code here
-    let maxIndex = 0;
-    let minIndex = 0;
-    let max = arr[0];
     let min = arr[0];
-    let maxSum = 0;
-    let minSum = 0;
-    
-    for(let i = 0; i < arr.length; i++) {
-        if(arr[i] > max) {
-            max = arr[i];
-            maxIndex = i;
+    let max = arr[0];
+    let sum = 0;
+    for (const num of arr) {
+        sum += num;
+        if (num < min) {
+            min = num;
         }
-        if(arr[i] < min) {
-            min = arr[i];
-            minIndex = i;
+        if (num > max) {
+            max = num;
         }
     }
-    
-    for(let j = 0; j < arr.length; j++) {
-        if(j != minIndex) {
-            maxSum += arr[j];
-        }
-        if(j != maxIndex) {
-            minSum += arr[j];
-        }
-    }
-    
+    let minSum = sum - max;
+    let maxSum = sum - min;
     console.log(minSum, maxSum);
 }

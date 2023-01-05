@@ -1,0 +1,44 @@
+# Tree: Postorder Traversal
+Complete the "postOrder" function in the editor below. It receives 1 parameter: a pointer to the root of a binary tree. It must print the values in the tree's postorder traversal as a single line of space-separated values.
+
+# Input Format
+Our test code passes the root node of a binary tree to the "postOrder" function.
+
+# Constraints
+1 <= Nodes in the tree = 500
+
+# Output Format
+Print the tree's postorder traversal as a single line of space-separated values.
+
+
+
+# Solution:
+Since we need to print the result in a single line, if we are doing this is JS, we will have to accumulate the traversed node datas in a string.
+This is because inside of console.log() we cannot specify the separator value.
+It is always going to be a new line.
+If we had done this in Python, we could have simply used print() with sep = ' '.
+
+
+# Implementation (NodeJs)
+var resultString = '';
+
+function postOrder(root) {
+	postOrderAcc(root);
+    console.log(resultString);
+}
+
+function postOrderAcc(root) {
+    if(root) {
+        postOrderAcc(root.left);
+        postOrderAcc(root.right);
+        resultString += root.data + ' ';
+    }
+}
+
+
+# Implementation (Python)
+def postOrder(root):
+    if root is not None:
+        postOrder(root.left)
+        postOrder(root.right)
+        print(root.info, end = ' ')

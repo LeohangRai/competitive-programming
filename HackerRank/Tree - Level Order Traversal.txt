@@ -1,0 +1,46 @@
+# Tree: Level Order Traversal
+Given a pointer to the root of a binary tree, you need to print the level order traversal of this tree. In level-order traversal, nodes are visited level by level from left to right. Complete the function "levelOrder" and print the values in a single line separated by a space.
+
+
+# Solution:
+Since we need to print the result in a single line, if we are doing this is JS, we will have to accumulate the traversed node datas in a string.
+This is because inside of console.log() we cannot specify the separator value.
+It is always going to be a new line.
+If we had done this in Python, we could have simply used print() with sep = ' '.
+
+
+# Implementation (NodeJs)
+var resultString = '';
+
+function levelOrder(root) {
+    levelOrderAcc(root);
+    console.log(resultString);
+}
+
+function levelOrderAcc(root) {
+    let queue = [];
+    queue.push(root);
+    while(queue.length != 0) {
+        let parent = queue.shift() // dequeue the first element
+        resultString += (parent.data + ' ');
+        if(parent.left) {
+            queue.push(parent.left);
+        }
+        if(parent.right) {
+            queue.push(parent.right);
+        }
+    }
+}
+
+
+# Implementation (Python)
+def levelOrder(root):
+    queue = []
+    queue.append(root)
+    while len(queue) != 0:
+        parent = queue.pop(0) # dequeu the first element
+        print(parent.info, end = ' ')
+        if parent.left:
+            queue.append(parent.left)
+        if parent.right:
+            queue.append(parent.right)
