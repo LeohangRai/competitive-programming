@@ -1,0 +1,63 @@
+# Balanced Brackets (Stack)
+
+
+
+# Solution
+I have created some helper functions: isClosingBracket(), isOpeningBracket() and 
+isPair().
+The isPair() function checks whether any 2 brackets are a pair of opening and closing brackets or not.
+
+First, initialize an empty stack.
+Loop through the given string.
+If an opening bracket is found, push() it into the stack.
+If a closing bracket is found, pop() the last item from the stack. (undefined will be returned if the stack is empty; our isPair() method handles the case where 'undefined' is returned).
+
+Now, run the isPair(opening, closing) method by passing the last item from the stack (returned by the pop() method) and the current sub string from the loop.
+If they don't match, just return "NO".
+If they do match, do nothing, just let the next iteration go on.
+
+After the end of the loop through the whole string, check the length of the stack.
+If the length is not equal to 0, it means there is an opening bracket without a matching closing bracket.
+So return "NO", otherwise return "YES".
+
+
+# Implementation
+function isBalanced(string) {
+    let stack = [];
+    
+    for (const substr of string) {
+        if(isOpeningBracket(substr)) {
+            stack.push(substr);
+        }
+        
+        if(isClosingBracket(substr)) {
+            let lastOpeningBracketInStack = stack.pop();
+            if(!isPair(lastOpeningBracketInStack, substr)) {
+                return "NO"
+            }
+        }
+    }
+    if(stack.length === 0) {
+        return "YES";
+    } else {
+        return "NO";
+    }
+}
+
+function isClosingBracket(s) {
+    return [')', '}', ']'].includes(s);
+}
+
+function isOpeningBracket(s) {
+    return ['(', '{', '['].includes(s);
+}
+
+/* checks if the given 2 brackets are a pair of opening and closing brackets or not */
+function isPair(opening, closing) {
+    let bracketDict = {
+        ')' : '(',
+        '}' : '{',
+        ']' : '['
+    };
+    return bracketDict[closing] === opening;
+}

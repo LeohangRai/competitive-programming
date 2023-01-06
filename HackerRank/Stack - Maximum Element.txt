@@ -1,0 +1,64 @@
+# Maximum Element (Stack)
+You have an empty sequence, and you will be given  queries. Each query is one of these three types:
+1 x  -> Push the element x into the stack.
+2    -> Delete the element present at the top of the stack.
+3    -> Print the maximum element in the stack.
+
+
+# Function Description
+Complete the "getMax" function in the editor below.
+
+getMax has the following parameters:
+- string operations[n]: operations as strings
+
+# Returns
+- int[]: the answers to each type 3 query
+
+
+# Solution
+I have defined helper functions for the insert, delete and getMaximum element operations.
+To get the maxElement, create a stack and store the maximum element in it.
+Whenever a larger element is observed, push it into the stack.
+Whenever a delete operation is performed, check if the last element in the maxElementsStack is equal to the deleted element or not.
+If it is, then pop() it from the maxElementsStack as well.
+
+While updating the maxElementsStack, i.e. during the insert operation, do a "greater than or equal to" comparison instead of a "greater than" comparison. This is because some elements maybe entered twice and removed once. In such cases, if we do not do a "greater than or equal to" comparison, our max element will be stored only once and a single delete operation may remove it from the maxElementsStack completely.
+
+
+# Implementation
+var stack = []; // the main stack where all the operations will be done
+var maxElementsStack = [];   // stores a list of all the max elements so far such that if the highest one gets deleted, the preceding one will become the new max element
+var answers = [];  // stores the max element whenever operation '3' is performed.
+
+function getMax(operations) {
+    for (const operation of operations) {
+        let task = operation.split(' ')[0];
+        if(task == '1') {
+            performInsertOperation(operation);
+        } else if (task == '2') {
+            performDeleteOperation();
+        } else {
+            pushMaxElements();
+        }
+    }
+    return answers;
+}
+
+function performInsertOperation(operation) {
+    let x = operation.split(' ').pop();
+    stack.push(Number(x));
+    if(maxElementsStack.length === 0 || x >= maxElementsStack[maxElementsStack.length - 1]) {
+        maxElementsStack.push(Number(x));
+    }
+}
+
+function performDeleteOperation() {
+    let deleted = stack.pop();
+    if(maxElementsStack[maxElementsStack.length - 1] == deleted) {
+        maxElementsStack.pop();
+    }
+}
+
+function pushMaxElements() {
+    answers.push(maxElementsStack[maxElementsStack.length - 1]);
+}
