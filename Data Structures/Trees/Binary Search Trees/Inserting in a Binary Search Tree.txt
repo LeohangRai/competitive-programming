@@ -22,6 +22,7 @@ If the key doesn't exist, we will create a new node whose data will be the key a
 # Iterative Implementation
 function insertBST(root, key) {
 	let tail; // use tail to keep track of the parent node on whose left/right we will insert the new node
+	// traverse through the BST to find the appropriate location for our new node
 	while(root != Null) {
 		tail = root;
 		if(key == root.data) { //if the key already exists
@@ -61,3 +62,41 @@ function recursiveInsert(root, key) {
 # Time Complexity
 The time complexity of inserting a node in BST is also:
 O(logn)
+
+
+
+# Python Implementation (Hackerrank)
+
+class BinarySearchTree:
+    def __init__(self): 
+        self.root = None
+
+	#Node is defined as
+	#self.left (the left child of the node)
+	#self.right (the right child of the node)
+	#self.info (the value of the node)
+
+    def insert(self, val):
+        newNode = Node(val)
+        #Insert the new node as the root if there are no nodes in the BST
+        if self.root is None:
+           self.root =  newNode
+           return self.root
+        
+        root = self.root
+        # Traverse up to the location where we should insert the new node
+        while root is not None: 
+            parent = root # pointer to the previous/parent node. we will insert our new node on this node's left or right
+            if val == root.info: # case where the value already exists in the BST
+                return root
+            elif val < root.info:
+                root = root.left
+            else:
+                root = root.right
+        # insert the new node to the left or right of the parent node
+        if val > parent.info:
+            parent.right = newNode
+        else:
+            parent.left = newNode
+        return self.root
+        
