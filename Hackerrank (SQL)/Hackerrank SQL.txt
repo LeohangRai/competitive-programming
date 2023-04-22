@@ -1,0 +1,309 @@
+# Hackerrank SQL
+
+# IMPORTANT NOTE
+You can use: 
+LEFT(string, number_of_chars) ---> SUBSTRING(string, start, number_of_chars)
+RIGHT(string, number_of_chars ---> SUBSTRING(string, len(string), number_of_chars)
+
+# Weather Observation Station 2
+Query the following two values from the STATION table:
+1. The sum of all values in LAT_N rounded to a scale of 2 decimal places.
+2. The sum of all values in LONG_W rounded to a scale of 2 decimal places.
+
+$ SELECT ROUND(SUM(LAT_N), 2), ROUND(SUM(LONG_W), 2)
+FROM STATION;
+
+
+1. Weather Observation Station 6
+Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.
+$ select distinct city from station where substring(city, 1, 1) in ('a','e','i','o','u');
+
+
+2. Weather Observation Station 7
+Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.
+$ select distinct city from station where substring(city, length(city), 1) in ('a', 'e', 'i', 'o', 'u');
+
+
+3. Weather Observation Station 8
+Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.
+$ select distinct city from station where substring(city, 1, 1) in ('a', 'e', 'i', 'o', 'u') and substring(city, length(city), 1) in ('a', 'e', 'i', 'o', 'u');
+
+
+4. Weather Observation Station 9
+Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.
+$ select distinct city from station where substring(city, 1, 1) not in ('a', 'e', 'i', 'o', 'u');
+
+
+5. Weather Observation Station 10
+Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.
+$ select distinct city from station where substring(city, length(city), 1) not in ('a', 'e', 'i', 'o', 'u');
+
+
+6. Weather Observation Station 11
+Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.
+$ select distinct city from station where substring(city, 1, 1) not in ('a', 'e', 'i', 'o', 'u') or substring(city, length(city), 1) not in ('a', 'e', 'i', 'o', 'u');
+
+
+7. Weather Observation Station 12
+Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. Your result cannot contain duplicates.
+$ select distinct city from station where substring(city, 1, 1) not in ('a', 'e', 'i', 'o', 'u') and substring(city, length(city), 1) not in ('a', 'e', 'i', 'o', 'u');
+
+# Weather Observation Station 13
+Query the sum of Northern Latitudes (LAT_N) from STATION having values greater than 38.7880 and less than 137.2345. 
+Truncate your answer to 4 decimal places.
+SELECT ROUND(SUM(LAT_N), 4)
+FROM STATION
+WHERE LAT_N > 38.7880 and LAT_N < 137.2345;
+
+# Weather Observation Station 14
+Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than 137.2345. 
+Truncate your answer to 4 decimal places.
+SELECT ROUND(MAX(LAT_N), 4)
+FROM STATION
+WHERE LAT_N < 137.2345;
+
+
+# Weather Observation Station 15
+Query the Western Longitude (LONG_W) for the largest Northern Latitude (LAT_N) in STATION that is less than 137.2345. 
+Round your answer to 4 decimal places.
+
+SELECT ROUND(LONG_W, 4)
+FROM STATION
+WHERE LAT_N = (SELECT MAX(LAT_N) FROM STATION WHERE LAT_N < 137.2345);
+
+
+# Weather Observation Station 16
+Query the smallest Northern Latitude (LAT_N) from STATION that is greater than 38.7780. 
+Round your answer to 4 decimal places.
+
+SELECT ROUND(MIN(LAT_N), 4)
+FROM STATION
+WHERE LAT_N > 38.7780;
+
+
+# Weather Observation Station 17
+Query the Western Longitude (LONG_W)where the smallest Northern Latitude (LAT_N) in STATION is greater than 38.7780. 
+Round your answer to 4 decimal places.
+
+SELECT ROUND(LONG_W, 4)
+FROM STATION
+WHERE LAT_N = (SELECT MIN(LAT_N) FROM STATION WHERE LAT_N > 38.7780);
+
+
+# Weather Observation Station 18
+Consider P1(a, b) and P2(c, d) to be two points on a 2D plane.
+- a happens to equal the minimum value in Northern Latitude (LAT_N in STATION).
+- b happens to equal the minimum value in Western Longitude (LONG_W in STATION).
+- c happens to equal the maximum value in Northern Latitude (LAT_N in STATION).
+- d happens to equal the maximum value in Western Longitude (LONG_W in STATION).
+
+Query the Manhattan Distance between points P1 and P2 and round it to a scale of 4 decimal places.
+
+Solution:
+/*
+Manhattan Distance Formula:
+In a plane with p1 at (x1, y1) and p2 at (x2, y2), it is |x1 - x2| + |y1 - y2|.
+So, basically, we just need to do abs(a - c) + abs(b - d) and round the result to 4 decimal points.
+*/
+
+SELECT ROUND(
+    ABS(MIN(LAT_N) - MAX(LAT_N)) + ABS(MIN(LONG_W) - MAX(LONG_W)), 4)
+FROM STATION;
+
+
+# Weather Observation Station 19
+Consider P1(a, c) and P2(b, d) to be two points on a 2D plane where (a, b) are the respective minimum and maximum values of Northern Latitude (LAT_N) and (c, d) are the respective minimum and maximum values of Western Longitude (LONG_W) in STATION.
+Query the Euclidean Distance between points P1 and P2 and format your answer to display 4 decimal digits.
+/*
+Euclidean Distance Formula:
+d = √[ (x2 – x1)2 + (y2 – y1)2]
+In our case:
+d = √[ (b – a)2 + (d – c)2]
+*/
+
+SELECT ROUND(SQRT(POWER(MAX(LAT_N) - MIN(LAT_N), 2) + POWER(MAX(LONG_W) - MIN(LONG_W), 2)), 4)
+FROM STATION;
+
+NOTE: For some reason, using the SQUARE() function threw runtime error in MySQL compiler so I had to use the POWER() function.
+
+
+# Weather Observation Station 20
+A median is defined as a number separating the higher half of a data set from the lower half. 
+Query the median of the Northern Latitudes (LAT_N) from STATION and round your answer to 4 decimal places.
+
+Analysis:
+As the question already suggests, a median is the number that separates the higher half of the dataset from the lower half.
+This means, if we were to sort the dataset in an ascending/descending order, we would find the MEDIAN value at the middle position.
+This means:
+MedianPosition = totalNumOfValues / 2
+NOTE: If totalNumberOfValues is odd, then MedianPosition = totalNumOfValues / 2
+NOTE: If totalNumberOfValues is even, then Median = sum of the 2 middle values
+
+But for our dataset, we don't have any column to represent positions. 
+The serial number (SN) that you see on your DB browsers are merely serial numbers and not part of the query result.
+We can use the row_number() function to given position numers (indices) to our query results. We can store this positioned dataset result as a sub-query.
+This sub-query would look something like this:
+SELECT row_number() over(ORDER BY LAT_N ASC) as position, 
+	LAT_N
+FROM station;
+
+This selects the ASC sorted LAT_N values with their corresponding positions (indices).
+For every LAT_N value, a row number or position or index will be provided.
+
+This means, now we have a sorted list of LAT_N values with their respective positions.
+So, all there's left to do is to extract the LAT_N value that is residing at the central position.
+We know this position is given by:
+(If totalNumOfRows is odd:)
+MedianPosition = totalNumOfValues / 2
+
+We can get this position on a sub-query as:
+SELECT ROUND(COUNT(*)/2) from station;
+NOTE: Rounding off to 0 decimal points to get an integer value to sync with our row_numbers.
+
+# Solution (Only for odd totalNumOfRows case)
+SELECT ROUND(LAT_N, 4) FROM 
+(SELECT row_number() over(ORDER BY LAT_N ASC) as position, LAT_N
+FROM station) indexed_dataset
+WHERE position = (SELECT ROUND(COUNT(*)/2) from station);
+
+
+# Higher Than 75 Marks
+Query the Name of any student in STUDENTS who scored higher than 75 Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
+
+$ select name from students
+where marks > 75
+order by right(name, 3), id ASC;
+
+
+
+# Type of Triangle (Advanced Select)
+Write a query identifying the type of each record in the TRIANGLES table using its three side lengths. 
+Output one of the following statements for each record in the table:
+
+1. Equilateral: It's a triangle with  sides of equal length.
+2. Isosceles: It's a triangle with  sides of equal length.
+3. Scalene: It's a triangle with  sides of differing lengths.
+4. Not A Triangle: The given values of A, B, and C don't form a triangle.
+
+SELECT CASE
+WHEN a + b <= c or b + c <= a or a + c <= b THEN 'Not A Triangle'
+WHEN a = b and b = c THEN 'Equilateral'
+WHEN a = b or b = c or a = c THEN 'Isosceles'
+WHEN a != b and b != c and a != c THEN 'Scalene'
+END
+FROM TRIANGLES;
+
+
+# The PADS (Advanced SELECT)
+Generate the following two result sets:
+1. Query an alphabetically ordered list of all names in OCCUPATIONS, immediately followed by the first letter of each profession as a parenthetical (i.e.: enclosed in parentheses). For example: AnActorName(A), ADoctorName(D), AProfessorName(P), and ASingerName(S).
+
+2. Query the number of ocurrences of each occupation in OCCUPATIONS. Sort the occurrences in ascending order, and output them in the following format:
+"There are a total of [occupation_count] [occupation]s."
+where [occupation_count] is the number of occurrences of an occupation in OCCUPATIONS,
+[occupation] is the lowercase occupation name. 
+If more than one Occupation has the same [occupation_count], they should be ordered alphabetically.
+Note: There will be at least two entries in the table for each type of occupation.
+
+Solution:
+select concat(name, '(', left(occupation, 1), ')') as names 
+from occupations 
+order by names ASC;
+
+select concat('There are a total of ', count(occupation), ' ', lower(occupation), 's.') 
+from occupations 
+group by occupation 
+order by count(occupation) ASC, occupation ASC;
+
+
+
+
+# Revising Aggregations - Averages
+Query the average population of all cities in CITY where District is California.
+SELECT AVG(population) 
+FROM CITY 
+WHERE district = 'California';
+
+
+# Revising Aggregations - The Sum Function
+Query the total population of all cities in CITY where District is California.
+SELECT SUM(population) 
+FROM city 
+WHERE district = 'California';
+
+
+# Average Population
+Query the average population for all cities in CITY, rounded down to the nearest integer.
+SELECT ROUND(AVG(population))
+FROM CITY;
+
+# Japan Population
+Query the sum of the populations for all Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
+SELECT SUM(population) 
+FROM city
+WHERE countrycode = 'JPN';
+
+# Population Density Difference
+Query the difference between the maximum and minimum populations in CITY.
+SELECT MAX(population) - MIN(population)
+FROM CITY;
+
+# Aggregation: The Blunder
+Samantha was tasked with calculating the average monthly salaries for all employees in the EMPLOYEES table, but did not realize her keyboard's 0 key was broken until after completing the calculation. She wants your help finding the difference between her miscalculation (using salaries with any zeros removed), and the actual average salary.
+Write a query calculating the amount of error (i.e.: actual - miscalculated average monthly salaries), and round it up to the next integer.
+
+SELECT CEIL(AVG(salary) - AVG(REPLACE(salary, '0', '')))
+FROM EMPLOYEES;	
+
+
+# Aggregation: Top Earners
+We define an employee's total earnings to be their (monthly salary * months worked), and the maximum total earnings to be the maximum total earnings for any employee in the Employee table. Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings. Then print these values as 2 space-separated integers.
+
+SELECT MAX(salary * months), count(*) 
+FROM EMPLOYEE
+WHERE 
+    (salary * months) = (SELECT MAX(salary * months) FROM EMPLOYEE);
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

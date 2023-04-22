@@ -1,0 +1,21 @@
+# Positive Lookahead (Assertions)
+Syntax:  regex_1(?=regex_2)
+
+The positive lookahead (?=) asserts regex_1 to be immediately follwed by regex_2. But the lookahead is excluded form the match.
+it does not return matches of regex_2.
+The lookahead only asserts whether a match is possible or not and that's all.
+
+Example:
+Regex: c(?=o)
+Test String: chocolate
+
+It will match the 'c' that is followed by an 'o' in the given string but won't match/select the 'o' itself.
+It only matches the 'c' that is followed by an 'o' without actually selecting/matching the succeding 'o'.
+
+# Question
+You have a test string S.
+Write a regex that can match all occurrences of 'o' followed immediately by 'oo' in S.
+
+
+# Solution
+var Regex_Pattern = /o(?=oo)/g;	//Do not delete `/` and `/g`.

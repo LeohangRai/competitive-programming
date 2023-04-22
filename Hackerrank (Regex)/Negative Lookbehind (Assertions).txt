@@ -1,0 +1,27 @@
+# Negative Lookbehind (Assertions)
+Syntax: (?<!regex_2)regex_1
+
+The negative lookbehind (?<!) asserts regex_1 not be immediately preceded by regex_2.
+Lookbehind is excludd from the match.
+This means, "do not consume matches of regex_2, only assert whether a match is possible or not."
+
+# Example:
+Regex Pattern: (?<[a-z])[aeiou]
+Test String: he1o
+
+The regex pattern here simply means, match a vowel letter that is not preceded by a lower case letter; but don't match the preceding part, only match the later part.
+Here:
+The 1st character 'h' is not preceded by anything, so it will not be matched.
+The 2nd character 'e' is preceded by a lower case letter, so it will not be matched either.
+The 3rd character '1' is a digit (not a vowel letter) so it will not be matched.
+The 4th character 'o' is a vowel letter and preceded by a digit (which is not a lower case letter) so it will be matched.
+
+Hence, the regex will match the last "o" from the above Test String.
+
+
+# Question
+You have a test String S.
+Write a regex which can match all the occurences of characters which are not immediately preceded by vowels (a, e, i, u, o, A, E, I, O, U).
+
+# Solution (Python)
+Regex_Pattern = r"(?<![aeiouAEIOU])."	# Do not delete 'r'.

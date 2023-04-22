@@ -1,0 +1,62 @@
+# Basic Join: The Report
+You are given two tables: Students and Grades. 
+Students contains three columns ID, Name and Marks.
+Grades contains three columns Grade, Min_Mark and Max_Mark.
+
+Ketty gives Eve a task to generate a report containing three columns: Name, Grade and Mark. Ketty doesn't want the NAMES of those students who received a grade lower than 8. The report must be in descending order by grade -- i.e. higher grades are entered first. If there is more than one student with the same grade (8-10) assigned to them, order those particular students by their name alphabetically. Finally, if the grade is lower than 8, use "NULL" as their name and list them by their grades in descending order. If there is more than one student with the same grade (1-7) assigned to them, order those particular students by their marks in ascending order.
+
+Write a query to help Eve.
+
+# Solution:
+SELECT 
+    CASE
+        WHEN grades.grade >= 8 THEN students.name
+        ELSE NULL
+    END,
+    grades.grade,
+    students.marks
+FROM students
+JOIN grades
+ON students.marks >= grades.min_mark and students.marks <= grades.max_mark
+ORDER BY grades.grade DESC, students.name ASC;
+
+
+# Analysis:
+1. How to join the tables?
+First things first, it is obvious that we need to join the Students and Grades table to get our desired result.
+Normally we join tables with the ON keyword by specifying equality operator like this:
+ON student.grade_id = grades.id
+
+But there's a twist here, we don't have any column that can be used to match both the Students and Grades table.
+Our requirement is to get the name, grade and marks of the students.
+To get the grade of any student, to be equivalent to every grade, there are 2 conditions: 
+- it must be greater than or equal to a grades.min_mark
+- it must be smaller than or equal to grades.max_mark
+
+# Example:
+For a student to have Grade 10, they must score between 90 to 100.
+For a student to have Grade 9, they must score between 80 to 89.
+And so on.
+
+This means we can join the Students and Grades tables on the following condition:
+ON Students.marks >= Grades.min_mark AND Students.marks <= Grades.max_mark
+
+2. SELECT CASE
+"Ketty doesn't want the NAMES of those students who received a grade lower than 8."
+This means we don't want to show the names  of the students whose grades are lower than 8.
+For this, we can use a simple SELECT CASE on our "Students.name" column as:
+SELECT 
+	CASE
+		WHEN grades.grade >= 8 THEN students.name
+		ELSE NULL
+	END,
+	grades.grade,
+	students.marks
+
+NOTE: We are using the SELECT CASE on our Students.name column only since it is the only column that we need to display conditionally.
+
+3. ORDER BY
+"The report must be in descending order by grade -- i.e. higher grades are entered first. If there is more than one student with the same grade (8-10) assigned to them, order those particular students by their name alphabetically."
+
+This basically means:
+ORDER BY Grades.grade DESC, Students.name ASC;

@@ -1,0 +1,26 @@
+# Positive Lookbehind
+Syntax: (?<=regex_2)regex_1
+
+Here, The positive lookbehind (?<=) asserts regex_1 to be immediately preceded by regex_2.
+But just like Lookaheads, Lookbehinds are also excluded from the match. 
+This means, "do not consume matches of regex_2, but only assert whether a match is possible or not".
+
+# Example:
+Regex: (?<=[a-z])[aeiou]
+Test String: he1o
+
+Let's look at the test string "he1o".
+The 1st character 'h' is preceded by nothing. So it is not matched by the regex.
+The 2nd character 'e' is preceded by a lower case letter (h), so it is matched by the regex.
+The 3rd chracter '1' is not a lower case letter, so it is not matched by the regex.
+The 4th character 'o' is preceded by a digit (1), so it is not matched by the regex either.
+
+So the only sub-string matched by the regex would be the "e" after the first "h".
+
+
+# Question
+You have a test String S.
+Write a regex which can match all the occurences of digit which are immediately preceded by odd digit.
+
+# Solution (Python)
+Regex_Pattern = r"(?<=[13579])\d"	# Do not delete 'r'.

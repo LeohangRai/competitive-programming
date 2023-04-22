@@ -1,0 +1,26 @@
+Challenges (Basic Join)
+
+
+# Analysis
+"Print the hacker_id, name, and the total number of challenges created by each student. "
+So, we need to calculate the total number of challenges created by each of the hackers.
+
+If multiple hackers have created the same number of challenges but the count of their challenges is less than the maximum created by a single hacker, then we need to exclude these hackers.
+For this, we need to get the maximum number of challenges created by a single hacker.
+
+# Joins the tables
+SELECT h.hacker_id, h.name, COUNT(ch.hacker_id) as cnt, MAX(ch.hacker_id)
+FROM Hackers h
+JOIN Challenges ch
+ON h.hacker_id = ch.hacker_id
+GROUP BY ch.hacker_id, h.name
+ORDER BY COUNT(h.hacker_id) DESC;
+
+
+# Gets the maximum challanges count for a single hacker
+SELECT MAX(challenges_count) as max_challenges_count
+FROM
+    (SELECT hacker_id, COUNT(hacker_id) as challenges_count
+    FROM Challenges
+    GROUP BY hacker_id
+    ORDER BY COUNT(hacker_id) DESC) challenge_counts;

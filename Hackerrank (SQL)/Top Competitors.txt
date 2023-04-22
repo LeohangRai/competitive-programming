@@ -1,0 +1,72 @@
+# Top Competitors
+Link to the question: https://www.hackerrank.com/challenges/full-score/problem?h_r=next-challenge&h_r=next-challenge&h_r=next-challenge&h_v=zen&h_v=zen&h_v=zen&isFullScreen=true
+
+Julia just finished conducting a coding contest, and she needs your help assembling the leaderboard! Write a query to print the respective hacker_id and name of hackers who achieved full scores for more than one challenge. Order your output in descending order by the total number of challenges in which the hacker earned a full score. If more than one hacker received full scores in same number of challenges, then sort them by ascending hacker_id.
+
+NOTE: Go to the original link to see the table structures and attributes.
+
+
+# Solution:
+SELECT sub.hacker_id, Hackers.name
+    FROM Submissions as sub
+        JOIN Hackers 
+            ON sub.hacker_id = Hackers.hacker_id
+        JOIN Challenges as ch
+            ON sub.challenge_id = ch.challenge_id
+        JOIN Difficulty as diff
+            ON ch.difficulty_level = diff.difficulty_level
+WHERE sub.score = diff.score
+GROUP BY sub.hacker_id, Hackers.name
+HAVING COUNT(sub.hacker_id) > 1
+ORDER BY COUNT(sub.hacker_id) DESC, Hackers.hacker_id ASC;
+
+
+# Analysis
+1. Joining the tables (Reason for joining all 4 tables)
+We join all the 4 tables:
+- Submissions
+- Hackers (To get the names of the hackers)
+- Challenges (To get the full_score of the submissions through Difficulty table)
+- Difficulty (To get the full_score of the submissions through Challenges table)
+
+2. The WHERE clause
+After joining all these tables, out of all the columns that we get, let's take a look at the following 2 columns:
+- Submissions.score
+- Difficulty.score
+
+Here, ""Submissions.score" means the score obtained by the hacker for the given submission.
+Whereas "Difficulty.score" means the total score that the challenge is worth.
+
+We have to filter out the rows where the value of these 2 columns match.
+That is :
+> WHERE Submissions.score = Difficulty.score;
+
+3. Aggregation task (GROUP BY)
+The WHERE clause that we have used above makes sure that the result only contains the rows (from Submissions table) where the hacker has obtained full score on the given challenge.
+
+Now we need to figure out the hackers who have obtained full scores more than once.
+For this, first let's get the count of "Hackers.hacker_rank" from the result we have obtained so far.
+This will give us the corresponding occurrences of each hacker in our query result that has been obtained so far.
+For this, we need to GROUP our results by Submissions.hacker_id.
+Since we need "Hackers.hacker_name" in our result as well, we will use both these columns in our GROUP BY statement.
+> GROUP BY Submissions.hacker_id, Hackers.name;
+
+
+4. HAVING
+Since we only want the hacker_id's whose occurrences is more than 1 time, we will be using a HAVING clause to filter out our aggregation result.
+> HAVING COUNT(Submissions.hacker_id) > 1;
+
+
+5. ORDER BY
+"Order your output in descending order by the total number of challenges in which the hacker earned a full score. If more than one hacker received full scores in same number of challenges, then sort them by ascending hacker_id."
+
+This basically means:
+> ORDER BY COUNT(Submissions.hacker_id) DESC, Submissions.hacker_id ASC;
+
+
+
+
+
+
+
+
