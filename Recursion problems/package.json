@@ -1,0 +1,13 @@
+{
+  "name": "recursion-problems",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --runInBand --detectOpenHandles",
+    "test:watch": "jest --runInBand --detectOpenHandles --watch"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
